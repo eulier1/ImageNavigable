@@ -2,10 +2,10 @@
   <section class="view-wrapper">
     <div ref="viewContainer" class="view-container">
       <img
-        class="center"
+        class="map"
         ref="imageRendered"
         :src="urlImage"
-        :style="{transform: `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})`}"
+        :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})` }"
         alt="Map"
       />
       <nav class="ui-zoom">
@@ -37,18 +37,17 @@
         </ul>
       </nav>
       <nav class="ui-swith-map">
-        <button
-          @click="urlImage = 'maps/Miami.png'"
-          class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >Map 1</button>
-        <button
-          @click="urlImage = 'maps/Washingtong.png'"
-          class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >Map 2</button>
-        <button
-          @click="urlImage = 'maps/Portland.png'"
-          class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-        >Map 3</button>
+        <t-dropdown :text="mapTitle" placement="top">
+          <ul>
+            <li v-for="(map, i) in maps" :key="i+10">
+              <a
+                href="#"
+                @click="switchMap(map.url, map.title)"
+                class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
+              >{{map.title}}</a>
+            </li>
+          </ul>
+        </t-dropdown>
       </nav>
       <nav
         class="ui-navigation"
@@ -84,9 +83,26 @@
 </template>
 
 <script>
+import VueTailwind from "vue-tailwind";
+
 export default {
   data() {
     return {
+      mapTitle: "",
+      maps: [
+        {
+          url: "maps/Miami.png",
+          title: "Miami"
+        },
+        {
+          url: "maps/Washingtong.png",
+          title: "Washington"
+        },
+        {
+          url: "maps/Portland.png",
+          title: "Portland"
+        }
+      ],
       zoom: 1,
       translateX: 0,
       translateY: 0,
@@ -133,6 +149,10 @@ export default {
       if (this.zoom > 1 && imageRenderedBox.right > viewContainerBox.right) {
         this.translateX -= 5;
       }
+    },
+    switchMap(url, title) {
+      this.mapTitle = title;
+      this.urlImage = url;
     }
   }
 };
@@ -141,8 +161,8 @@ export default {
 <style scoped>
 .view-wrapper {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
 .view-container {
@@ -150,13 +170,14 @@ export default {
   background: #333;
   z-index: 1;
   width: 100%;
+  height: 100%;
   padding: 1rem;
   overflow: hidden;
 }
 
 .ui-zoom {
   position: absolute;
-  top: 1rem;
+  bottom: 1rem;
   right: 1rem;
 }
 
@@ -170,8 +191,8 @@ export default {
   width: 45px;
   height: 44px;
   position: absolute;
-  top: 2rem;
-  left: 2rem;
+  bottom: 2rem;
+  right: 6rem;
   transform: scale(1.5);
 }
 
@@ -206,8 +227,9 @@ export default {
   left: 15px;
 }
 
-.center {
+.map {
   margin: auto;
+  height: 100%;
 }
 </style>
 
