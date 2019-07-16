@@ -1,10 +1,12 @@
-# MapCanvas
+# ImageNavigable
 
-> image navigable
+> navigate through any image 🖼️ like it was a map 🗺️
+
+![image navigable](/static/demo/imagenavigable.gif)
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm run install
 
