@@ -1,8 +1,8 @@
 {
-  "name": "MapCanvas",
+  "name": "ImageNavigable",
   "version": "1.0.0",
-  "description": "image navigable",
-  "author": "-Eu-",
+  "description": "navigate through any image like it was a map",
+  "author": "Eulier González",
   "private": true,
   "scripts": {
     "dev": "nuxt",
