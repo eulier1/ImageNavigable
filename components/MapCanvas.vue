@@ -83,8 +83,6 @@
 </template>
 
 <script>
-import VueTailwind from "vue-tailwind";
-
 export default {
   data() {
     return {
