@@ -1,13 +1,15 @@
 <template>
   <section class="view-wrapper">
     <div ref="viewContainer" class="view-container">
-      <img
-        class="map"
-        ref="imageRendered"
-        :src="urlImage"
-        :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})` }"
-        alt="Map"
-      />
+      <div style="position: relative" v-dragged="onDragged">
+        <img
+          class="map"
+          ref="imageRendered"
+          :src="urlImage"
+          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})` }"
+          alt="Map"
+        />
+      </div>
       <nav class="ui-zoom">
         <ul>
           <li>
@@ -108,7 +110,14 @@ export default {
       urlImage: "maps/Miami.png"
     };
   },
+  created() {
+    this.initMap();
+  },
   methods: {
+    initMap() {
+      this.mapTitle = this.maps[0].title;
+      this.urlImage = this.maps[0].url;
+    },
     zoomReset() {
       this.zoom = 1;
       this.translateX = 0;
@@ -151,6 +160,30 @@ export default {
     switchMap(url, title) {
       this.mapTitle = title;
       this.urlImage = url;
+    },
+    onDragged({
+      el,
+      deltaX,
+      deltaY,
+      offsetX,
+      offsetY,
+      clientX,
+      clientY,
+      first,
+      last
+    }) {
+      if (first) {
+        this.isDragging = true;
+        return;
+      }
+      if (last) {
+        this.isDragging = false;
+        return;
+      }
+      var l = +window.getComputedStyle(el)["left"].slice(0, -2) || 0;
+      var t = +window.getComputedStyle(el)["top"].slice(0, -2) || 0;
+      el.style.left = l + deltaX + "px";
+      el.style.top = t + deltaY + "px";
     }
   }
 };
