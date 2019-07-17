@@ -124,8 +124,8 @@ export default {
       this.zoom = 1;
       this.translateX = 0;
       this.translateY = 0;
-      this.$refs.imageContainer.style.top = "50%";
-      this.$refs.imageContainer.style.left = "50%";
+      this.$refs.imageContainer.style.top = "0";
+      this.$refs.imageContainer.style.left = "0";
     },
     zoomIn() {
       this.zoom < 4 ? (this.zoom += 0.5) : null;
@@ -263,14 +263,15 @@ export default {
 }
 
 .map {
-  margin: auto;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: auto;
 }
 .imageContainer {
   position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
 }
 </style>
 
