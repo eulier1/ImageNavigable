@@ -1,7 +1,7 @@
 <template>
   <section class="view-wrapper">
     <div ref="viewContainer" class="view-container">
-      <div style="position: relative" v-dragged="onDragged">
+      <div style="position: relative" v-dragged.prevent="onDragged">
         <img
           class="map"
           ref="imageRendered"
