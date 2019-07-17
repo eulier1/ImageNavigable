@@ -1,12 +1,12 @@
 <template>
   <section class="view-wrapper">
     <div ref="viewContainer" class="view-container">
-      <div style="position: relative" v-dragged.prevent="onDragged">
+      <div ref="imageContainer" class="imageContainer" v-dragged.prevent="onDragged">
         <img
           class="map"
           ref="imageRendered"
           :src="urlImage"
-          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})` }"
+          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})`, 'weigth': '100%', 'height' : 'auto' }"
           alt="Map"
         />
       </div>
@@ -14,7 +14,7 @@
         <ul>
           <li>
             <button
-              @click="zoomIn"
+              @pointerdown="zoomIn"
               class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             >
               <img width="25" src="zoomIn.png" class="opacity-75" alt="zoom in" />
@@ -22,7 +22,7 @@
           </li>
           <li>
             <button
-              @click="zoomReset"
+              @pointerdown="reset"
               class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             >
               <img width="25" src="reset.png" class="opacity-75" alt="reset zoom" />
@@ -30,7 +30,7 @@
           </li>
           <li>
             <button
-              @click="zoomOut"
+              @pointerdown="zoomOut"
               class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             >
               <img width="25" src="zoomOut.png" class="opacity-75" alt="zoom out" />
@@ -41,13 +41,12 @@
       <nav class="ui-swith-map">
         <t-dropdown :text="mapTitle" placement="top">
           <ul>
-            <li v-for="(map, i) in maps" :key="i+10">
-              <a
-                href="#"
-                @click="switchMap(map.url, map.title)"
-                class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
-              >{{map.title}}</a>
-            </li>
+            <li
+              class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
+              v-for="(map, i) in maps"
+              :key="i+10"
+              @pointerdown="switchMap(map.url, map.title)"
+            >{{map.title}}</li>
           </ul>
         </t-dropdown>
       </nav>
@@ -57,25 +56,25 @@
       >
         <div
           class="up-arrow"
-          @click="moveUp"
+          @pointerdown="moveUp"
           @mouseover="spriteHeight = -44"
           @mouseleave=" spriteHeight = 0"
         ></div>
         <div
           class="left-arrow"
-          @click="moveLeft"
+          @pointerdown="moveLeft"
           @mouseover="spriteHeight = -176"
           @mouseleave=" spriteHeight = 0"
         ></div>
         <div
           class="right-arrow"
-          @click="moveRight"
+          @pointerdown="moveRight"
           @mouseover="spriteHeight = -88"
           @mouseleave=" spriteHeight = 0"
         ></div>
         <div
           class="down-arrow"
-          @click="moveDown"
+          @pointerdown="moveDown"
           @mouseover="spriteHeight = -132"
           @mouseleave=" spriteHeight = 0"
         ></div>
@@ -113,15 +112,20 @@ export default {
   created() {
     this.initMap();
   },
+  mounted() {
+    console.log();
+  },
   methods: {
     initMap() {
       this.mapTitle = this.maps[0].title;
       this.urlImage = this.maps[0].url;
     },
-    zoomReset() {
+    reset() {
       this.zoom = 1;
       this.translateX = 0;
       this.translateY = 0;
+      this.$refs.imageContainer.style.top = "50%";
+      this.$refs.imageContainer.style.left = "50%";
     },
     zoomIn() {
       this.zoom < 4 ? (this.zoom += 0.5) : null;
@@ -261,6 +265,12 @@ export default {
 .map {
   margin: auto;
   height: 100%;
+}
+.imageContainer {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>
 
