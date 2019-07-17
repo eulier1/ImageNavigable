@@ -3,15 +3,14 @@
     <div ref="viewContainer" class="view-container">
       <div ref="imageContainer" class="imageContainer" v-dragged.prevent="onDragged">
         <img
-          class="map"
           ref="imageRendered"
           :src="urlImage"
-          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})`, 'weigth': '100%', 'height' : 'auto' }"
+          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})`, 'weigth': '100%', 'height' : '100%' , 'margin': 'auto'}"
           alt="Map"
         />
       </div>
       <nav class="ui-zoom">
-        <ul>
+        <ul class="flex">
           <li>
             <button
               @pointerdown="zoomIn"
@@ -20,14 +19,14 @@
               <img width="25" src="zoomIn.png" class="opacity-75" alt="zoom in" />
             </button>
           </li>
-          <li>
+          <!-- <li>
             <button
               @pointerdown="reset"
               class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             >
               <img width="25" src="reset.png" class="opacity-75" alt="reset zoom" />
             </button>
-          </li>
+          </li>-->
           <li>
             <button
               @pointerdown="zoomOut"
@@ -50,56 +49,41 @@
           </ul>
         </t-dropdown>
       </nav>
-      <nav
-        class="ui-navigation"
-        :style="{ background: `url('navigation.png')`, backgroundPosition: `0px ${spriteHeight}px` }"
-      >
-        <div
-          class="up-arrow"
-          @pointerdown="moveUp"
-          @mouseover="spriteHeight = -44"
-          @mouseleave=" spriteHeight = 0"
-        ></div>
-        <div
-          class="left-arrow"
-          @pointerdown="moveLeft"
-          @mouseover="spriteHeight = -176"
-          @mouseleave=" spriteHeight = 0"
-        ></div>
-        <div
-          class="right-arrow"
-          @pointerdown="moveRight"
-          @mouseover="spriteHeight = -88"
-          @mouseleave=" spriteHeight = 0"
-        ></div>
-        <div
-          class="down-arrow"
-          @pointerdown="moveDown"
-          @mouseover="spriteHeight = -132"
-          @mouseleave=" spriteHeight = 0"
-        ></div>
+      <nav class="ui-navigation">
+        <nav-map-ui
+          @move-up="moveUp"
+          @move-down="moveDown"
+          @move-right="moveRight"
+          @move-left="moveLeft"
+          @reset="reset"
+        ></nav-map-ui>
       </nav>
     </div>
   </section>
 </template>
 
 <script>
+import NavMapUi from "./NavMapUI/NavMapUI";
+
 export default {
+  components: {
+    NavMapUi
+  },
   data() {
     return {
       mapTitle: "",
       maps: [
         {
-          url: "maps/Miami.png",
-          title: "Miami"
+          url: "maps/portrait.jpg",
+          title: "Portrait"
         },
         {
-          url: "maps/Washingtong.png",
-          title: "Washington"
+          url: "maps/landscape.jpg",
+          title: "Landscape"
         },
         {
-          url: "maps/Portland.png",
-          title: "Portland"
+          url: "maps/square.jpg",
+          title: "Square"
         }
       ],
       zoom: 1,
@@ -195,14 +179,13 @@ export default {
 
 <style scoped>
 .view-wrapper {
-  position: relative;
   width: 100vw;
   height: 100vh;
 }
 
 .view-container {
   position: absolute;
-  background: #333;
+  background: #555;
   z-index: 1;
   width: 100%;
   height: 100%;
@@ -223,55 +206,18 @@ export default {
 }
 
 .ui-navigation {
-  width: 45px;
-  height: 44px;
+  width: 75px;
+  height: 75px;
   position: absolute;
-  bottom: 2rem;
-  right: 6rem;
+  bottom: 5.5rem;
+  right: 2.5rem;
   transform: scale(1.5);
 }
 
-.up-arrow {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  left: 15px;
-}
-
-.left-arrow {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  top: 12px;
-  left: 1px;
-}
-
-.right-arrow {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  right: 1px;
-  top: 12px;
-}
-
-.down-arrow {
-  position: absolute;
-  width: 15px;
-  height: 15px;
-  bottom: 0;
-  left: 15px;
-}
-
-.map {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: auto;
-}
 .imageContainer {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  height: 100%;
 }
 </style>
 
