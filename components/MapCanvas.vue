@@ -68,16 +68,19 @@ export default {
         {
           url: "maps/portrait.jpg",
           title: "Portrait",
+          defaultZoom: 1,
           zoomFactor: 0.3
         },
         {
           url: "maps/landscape.jpg",
           title: "Landscape",
+          defaultZoom: 1,
           zoomFactor: 0.5
         },
         {
           url: "maps/square.jpg",
           title: "Square",
+          defaultZoom: 1,
           zoomFactor: 1.5
         }
       ],
@@ -141,10 +144,11 @@ export default {
         this.translateX -= 5;
       }
     },
-    updateMap(title, url, zoomFactor) {
+    updateMap(title, url, defaultZoom, zoomFactor) {
       this.mapTitle = title;
       this.urlImage = url;
       this.zoomFactor = zoomFactor;
+      this.zoom = defaultZoom;
     },
     onDragged({
       el,
