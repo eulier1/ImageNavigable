@@ -29,6 +29,7 @@
         class="shadow pt-1 pb-1 bg-gray-100"
         :class="{'block' : menuActive, 'hidden': !menuActive}"
       >
+        <img class="w-full" :src="urlLogo" alt="Placeholder" />
         <ul>
           <li
             class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white font-lg text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
@@ -49,6 +50,10 @@ export default {
     maps: {
       type: Array,
       required: true
+    },
+    urlLogo: {
+      type: String,
+      default: "/placeholder.png"
     }
   },
   data() {
