@@ -110,10 +110,10 @@ export default {
       this.$refs.imageContainer.style.left = "0";
     },
     zoomIn() {
-      this.zoom < 4 ? (this.zoom += 0.5) : null;
+      this.zoom < 9 ? (this.zoom += 1) : null;
     },
     zoomOut() {
-      this.zoom > 1 ? (this.zoom -= 0.5) : null;
+      this.zoom > 1 ? (this.zoom -= 1) : null;
     },
     moveUp() {
       this.menuActive = true;
