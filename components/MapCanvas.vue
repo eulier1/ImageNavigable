@@ -66,18 +66,22 @@ export default {
       maps: [
         {
           url: "maps/portrait.jpg",
-          title: "Portrait"
+          title: "Portrait",
+          zoomFactor: 0.3
         },
         {
           url: "maps/landscape.jpg",
-          title: "Landscape"
+          title: "Landscape",
+          zoomFactor: 0.5
         },
         {
           url: "maps/square.jpg",
-          title: "Square"
+          title: "Square",
+          zoomFactor: 1.5
         }
       ],
       zoom: 1,
+      zoomFactor: 0.1,
       translateX: 0,
       translateY: 0,
       urlImage: ""
@@ -93,6 +97,7 @@ export default {
     initMap() {
       this.mapTitle = this.maps[0].title;
       this.urlImage = this.maps[0].url;
+      this.zoomFactor = this.maps[0].zoomFactor;
     },
     reset() {
       this.zoom = 1;
@@ -102,10 +107,10 @@ export default {
       this.$refs.imageContainer.style.left = "0";
     },
     zoomIn() {
-      this.zoom < 9 ? (this.zoom += 0.5) : null;
+      this.zoom < 9 ? (this.zoom += this.zoomFactor) : null;
     },
     zoomOut() {
-      this.zoom > 1 ? (this.zoom -= 0.5) : null;
+      this.zoom > 1 ? (this.zoom -= this.zoomFactor) : null;
     },
     moveUp() {
       const viewContainerBox = this.$refs.viewContainer.getBoundingClientRect();
@@ -135,9 +140,10 @@ export default {
         this.translateX -= 5;
       }
     },
-    updateMap(title, url) {
+    updateMap(title, url, zoomFactor) {
       this.mapTitle = title;
       this.urlImage = url;
+      this.zoomFactor = zoomFactor;
     },
     onDragged({
       el,
