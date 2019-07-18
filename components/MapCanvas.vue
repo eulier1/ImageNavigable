@@ -25,14 +25,6 @@
               <img width="25" src="zoomIn.png" class="opacity-75" alt="zoom in" />
             </button>
           </li>
-          <!-- <li>
-            <button
-              @pointerdown="reset"
-              class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-            >
-              <img width="25" src="reset.png" class="opacity-75" alt="reset zoom" />
-            </button>
-          </li>-->
           <li>
             <button
               @pointerdown="zoomOut"
@@ -88,7 +80,7 @@ export default {
       zoom: 1,
       translateX: 0,
       translateY: 0,
-      urlImage: "maps/Miami.png"
+      urlImage: ""
     };
   },
   created() {
@@ -110,13 +102,12 @@ export default {
       this.$refs.imageContainer.style.left = "0";
     },
     zoomIn() {
-      this.zoom < 9 ? (this.zoom += 1) : null;
+      this.zoom < 9 ? (this.zoom += 0.5) : null;
     },
     zoomOut() {
-      this.zoom > 1 ? (this.zoom -= 1) : null;
+      this.zoom > 1 ? (this.zoom -= 0.5) : null;
     },
     moveUp() {
-      this.menuActive = true;
       const viewContainerBox = this.$refs.viewContainer.getBoundingClientRect();
       const imageRenderedBox = this.$refs.imageRendered.getBoundingClientRect();
       if (this.zoom > 1 && imageRenderedBox.top < viewContainerBox.top) {
@@ -124,7 +115,6 @@ export default {
       }
     },
     moveDown() {
-      this.menuActive = false;
       const viewContainerBox = this.$refs.viewContainer.getBoundingClientRect();
       const imageRenderedBox = this.$refs.imageRendered.getBoundingClientRect();
       if (this.zoom > 1 && imageRenderedBox.bottom > viewContainerBox.bottom) {
