@@ -18,6 +18,7 @@
         ></div>
       </div>
     </button>
+    <!-- Dropdown Menu -->
     <div
       class="dropdown-menu"
       id="dropdown-menu"
@@ -38,6 +39,7 @@
         </ul>
       </div>
     </div>
+    <!-- End Dropdown Menu -->
   </div>
 </template>
 
@@ -110,7 +112,7 @@ export default {
   height: 8px;
 }
 
-/* Menu Animations */
+/* Menu Icon Animations */
 
 .line1-forward {
   transform: translate3d(0, 22px, 0) rotate(45deg);

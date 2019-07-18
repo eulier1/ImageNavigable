@@ -16,11 +16,11 @@
 </template>
 
 <script>
-import UpArrow from "./UpArrow";
-import DownArrow from "./DownArrow";
-import LeftArrow from "./LeftArrow";
-import RightArrow from "./RightArrow";
-import Reset from "./Reset";
+import UpArrow from "./Controls/UpArrow";
+import DownArrow from "./Controls/DownArrow";
+import LeftArrow from "./Controls/LeftArrow";
+import RightArrow from "./Controls/RightArrow";
+import Reset from "./Controls/Reset";
 
 export default {
   components: {
