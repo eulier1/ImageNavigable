@@ -1,6 +1,12 @@
 <template>
   <section class="view-wrapper">
     <div ref="viewContainer" class="view-container">
+      <div
+        class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3 absolute z-10 shadow-2xl"
+        role="alert"
+      >
+        <p class="font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">{{mapTitle}}</p>
+      </div>
       <div ref="imageContainer" class="imageContainer" v-dragged.prevent="onDragged">
         <img
           ref="imageRendered"
@@ -38,16 +44,7 @@
         </ul>
       </nav>
       <nav class="ui-swith-map">
-        <t-dropdown :text="mapTitle" placement="top">
-          <ul>
-            <li
-              class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white"
-              v-for="(map, i) in maps"
-              :key="i+10"
-              @pointerdown="switchMap(map.url, map.title)"
-            >{{map.title}}</li>
-          </ul>
-        </t-dropdown>
+        <dropdown @updateMap="updateMap" :maps="maps"></dropdown>
       </nav>
       <nav class="ui-navigation">
         <nav-map-ui
@@ -64,10 +61,12 @@
 
 <script>
 import NavMapUi from "./NavMapUI/NavMapUI";
+import Dropdown from "./Dropdown/Dropdown";
 
 export default {
   components: {
-    NavMapUi
+    NavMapUi,
+    Dropdown
   },
   data() {
     return {
@@ -89,7 +88,6 @@ export default {
       zoom: 1,
       translateX: 0,
       translateY: 0,
-      spriteHeight: 0,
       urlImage: "maps/Miami.png"
     };
   },
@@ -118,6 +116,7 @@ export default {
       this.zoom > 1 ? (this.zoom -= 0.5) : null;
     },
     moveUp() {
+      this.menuActive = true;
       const viewContainerBox = this.$refs.viewContainer.getBoundingClientRect();
       const imageRenderedBox = this.$refs.imageRendered.getBoundingClientRect();
       if (this.zoom > 1 && imageRenderedBox.top < viewContainerBox.top) {
@@ -125,6 +124,7 @@ export default {
       }
     },
     moveDown() {
+      this.menuActive = false;
       const viewContainerBox = this.$refs.viewContainer.getBoundingClientRect();
       const imageRenderedBox = this.$refs.imageRendered.getBoundingClientRect();
       if (this.zoom > 1 && imageRenderedBox.bottom > viewContainerBox.bottom) {
@@ -145,7 +145,7 @@ export default {
         this.translateX -= 5;
       }
     },
-    switchMap(url, title) {
+    updateMap(title, url) {
       this.mapTitle = title;
       this.urlImage = url;
     },
@@ -168,8 +168,8 @@ export default {
         this.isDragging = false;
         return;
       }
-      var l = +window.getComputedStyle(el)["left"].slice(0, -2) || 0;
-      var t = +window.getComputedStyle(el)["top"].slice(0, -2) || 0;
+      const l = +window.getComputedStyle(el)["left"].slice(0, -2) || 0;
+      const t = +window.getComputedStyle(el)["top"].slice(0, -2) || 0;
       el.style.left = l + deltaX + "px";
       el.style.top = t + deltaY + "px";
     }
@@ -220,4 +220,3 @@ export default {
   height: 100%;
 }
 </style>
-

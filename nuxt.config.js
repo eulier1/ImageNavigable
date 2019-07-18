@@ -27,7 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["~/plugins/vue-tailwind", "~/plugins/v-dragged"],
+  plugins: ["~/plugins/v-dragged"],
   /*
    ** Nuxt.js modules
    */
