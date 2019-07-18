@@ -11,7 +11,8 @@
         <img
           ref="imageRendered"
           :src="urlImage"
-          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})`, 'weigth': '100%', 'height' : '100%' , 'margin': 'auto'}"
+          style="weigth: 100%; height: 100%; margin: auto"
+          :style="{'transform': `scale(${zoom}) translate(${translateX + '%'}, ${translateY + '%'})`}"
           alt="Map"
         />
       </div>
