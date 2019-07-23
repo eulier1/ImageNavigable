@@ -35,7 +35,7 @@
             class="block no-underline px-4 py-2 hover:bg-blue-500 hover:text-white font-lg text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl"
             v-for="(map, i) in maps"
             :key="i+10"
-            @pointerdown="switchMap(map.url, map.title, map.defaultZoom, map.zoomFactor)"
+            @pointerdown="switchMap(map.url, map.title, map.defaultZoom, map.zoomLevel)"
           >{{map.title}}</li>
         </ul>
       </div>
@@ -62,9 +62,9 @@ export default {
     };
   },
   methods: {
-    switchMap(url, title, defaultZoom, zoomFactor) {
+    switchMap(url, title, defaultZoom, zoomLevel) {
       this.mapTitle = title;
-      this.$emit("updateMap", title, url, defaultZoom, zoomFactor);
+      this.$emit("updateMap", title, url, defaultZoom, zoomLevel);
     },
     toggleMenu() {
       this.menuActive = !this.menuActive;

@@ -6,6 +6,7 @@
         role="alert"
       >
         <p class="font-bold text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl">{{mapTitle}}</p>
+        Zoom Level {{zoomFactor}}
       </div>
       <div ref="imageContainer" class="imageContainer" v-dragged.prevent="onDragged">
         <img
@@ -75,19 +76,19 @@ export default {
           url: "maps/portrait.jpg",
           title: "Portrait",
           defaultZoom: 1,
-          zoomFactor: 0.3
+          zoomLevel: 0.3
         },
         {
           url: "maps/landscape.jpg",
           title: "Landscape",
           defaultZoom: 1,
-          zoomFactor: 0.5
+          zoomLevel: 0.5
         },
         {
           url: "maps/square.jpg",
           title: "Square",
           defaultZoom: 1,
-          zoomFactor: 1.5
+          zoomLevel: 1.5
         }
       ],
       zoom: 1,
@@ -107,7 +108,7 @@ export default {
     initMap() {
       this.mapTitle = this.maps[0].title;
       this.urlImage = this.maps[0].url;
-      this.zoomFactor = this.maps[0].zoomFactor;
+      this.zoomFactor = this.maps[0].zoomLevel;
     },
     reset() {
       this.zoom = 1;
@@ -150,10 +151,10 @@ export default {
         this.translateX -= 5;
       }
     },
-    updateMap(title, url, defaultZoom, zoomFactor) {
+    updateMap(title, url, defaultZoom, zoomLevel) {
       this.mapTitle = title;
       this.urlImage = url;
-      this.zoomFactor = zoomFactor;
+      this.zoomFactor = zoomLevel;
       this.zoom = defaultZoom;
     },
     onDragged({
