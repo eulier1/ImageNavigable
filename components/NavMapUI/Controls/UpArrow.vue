@@ -2,6 +2,8 @@
   <svg
     @pointerdown="pointerDown"
     @pointerup="pointerUp"
+    @mouseenter="$emit('mouseenter',$event.target)"
+    @mouseleave="$emit('mouseleave',$event.target)"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"

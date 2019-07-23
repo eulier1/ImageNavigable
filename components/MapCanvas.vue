@@ -21,6 +21,8 @@
           <li>
             <button
               @pointerdown="zoomIn"
+              @mouseenter="hintBrowser"
+              @mouseleave="removeHint"
               class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             >
               <img width="25" src="zoomIn.png" class="opacity-75" alt="zoom in" />
@@ -29,6 +31,8 @@
           <li>
             <button
               @pointerdown="zoomOut"
+              @mouseenter="hintBrowser"
+              @mouseleave="removeHint"
               class="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
             >
               <img width="25" src="zoomOut.png" class="opacity-75" alt="zoom out" />
@@ -41,6 +45,8 @@
       </nav>
       <nav class="ui-navigation">
         <nav-map-ui
+          @mouseenter="hintBrowser"
+          @mouseleave="removeHint"
           @move-up="moveUp"
           @move-down="moveDown"
           @move-right="moveRight"
@@ -173,6 +179,12 @@ export default {
       const t = +window.getComputedStyle(el)["top"].slice(0, -2) || 0;
       el.style.left = l + deltaX + "px";
       el.style.top = t + deltaY + "px";
+    },
+    hintBrowser(ev) {
+      this.$refs.viewContainer.style.willChange = "transform, opacity";
+    },
+    removeHint(ev) {
+      this.$refs.viewContainer.style.willChange = "auto";
     }
   }
 };
